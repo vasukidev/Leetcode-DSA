@@ -40,7 +40,7 @@ public class LetterCombination {
     	
 		// base condition to add all the combinations to the list
     	//if exceeds the index of digits
-	if(index>=digits.length()) {
+	   if(index>=digits.length()) {
 		result.add(prefix);
 		
 		return;	
