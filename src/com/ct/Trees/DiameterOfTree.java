@@ -1,6 +1,6 @@
 package com.ct.Trees;
 
-class TreeNode{
+/*class TreeNode{
 	
 	int data;
 	TreeNode left;
@@ -10,7 +10,7 @@ class TreeNode{
 		
 		this.data=data;
 	}
-}
+}*/
 
 public class DiameterOfTree {
 	
