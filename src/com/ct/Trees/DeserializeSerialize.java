@@ -15,17 +15,32 @@ public class DeserializeSerialize {
 	// serialization
 	public String serialize(TreeNode root) {
 		
-		if(root==null) return null;
 		
-		// separates the nodes 
-		StringBuilder str = new StringBuilder("^");
+		// use sb for 
+		StringBuilder sb = new StringBuilder();
+		serializehelper(sb,root);
+		return sb.toString();
+	}
+	
+	public String serializehelper(StringBuilder sb, TreeNode root) {
 		
-		str.append(root.val);
-		str.append(serialize(root.left));
-		str.append(serialize(root.right));
+		// null check 
+		if(root==null) {
+			
+			// delimiter ","
+			sb.append("N").append(",");
+		}
 		
 		
-		return str.toString();
+		else {
+			sb.append(root.val).append(",");
+			// apply recursion on left node 
+			serializehelper(sb, root.left);
+			serializehelper(sb, root.right);
+		}
+		
+		return sb.toString();
+		
 	}
 	
 	public TreeNode deserialize(String data) {
@@ -34,6 +49,8 @@ public class DeserializeSerialize {
 		
 		List<String> asList = Arrays.asList(split);
 		
+		// deserialize into list and place the values into queue
+		// because tree has underlying Data structure of queue 
 		Queue<String> q = new LinkedList<>(asList);
 		
 	     return deserializeHelper(q);
@@ -44,19 +61,21 @@ public class DeserializeSerialize {
 	
 	public TreeNode deserializeHelper(Queue<String> q) {
 		
-		// q.poll will look for the val in the queue
+		//  keep removing from queue as you traverse through their left and right 
 		String val = q.remove();
 		
-		if(val==null) {
+		if(val.equalsIgnoreCase("N")) {
 			return null;
 			}
 		
 		else {
+			// if you find value immeditaley create a tree node 
 		TreeNode root = new TreeNode(Integer.parseInt(val));
-		
+		// keep traversing left and right
 		root.left = deserializeHelper(q);
 		root.right = deserializeHelper(q);
 		
+		// return tree root 
 		return root;
 		}
 	}
