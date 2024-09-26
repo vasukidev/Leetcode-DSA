@@ -3,6 +3,7 @@ package com.ct.Trees;
 import java.util.HashMap;
 
 public class ConstructBTPost {
+	HashMap<Integer,Integer> inorderMap = new HashMap<>();
 	
 	// LC 106 construct-binary-tree-from-inorder-and-postorder-traversal/
 	
@@ -13,14 +14,16 @@ public class ConstructBTPost {
 	
 	public TreeNode constructBT(int [] inorder, int [] postorder) {
 		
-		HashMap<Integer,Integer> inorderMap = new HashMap<>();
+		//HashMap<Integer,Integer> inorderMap = new HashMap<>();
 		
 		for(int i =0;i<inorder.length;i++) {
 			
 			inorderMap.put(inorder[i], i);
 		}
 		
-		return splitTree(postorder, inorderMap, postorder.length-1, 0, inorder.length-1);
+		//return splitTree(postorder, inorderMap, postorder.length-1, 0, inorder.length-1);
+		
+		return splitTree2(inorder, 0, inorder.length-1, postorder, 0, postorder.length-1);
 	}
 	
 	private TreeNode splitTree(int[] postorder, HashMap<Integer, Integer> inorderMap, int rootIndex, int left, int right) {
@@ -50,6 +53,33 @@ public class ConstructBTPost {
 
         return root;
     
+		
+	}
+	
+	
+	//Sourin Majumdar's
+	// https://www.youtube.com/watch?v=D8riBoRSwK8&t=1008s
+	private TreeNode splitTree2(int [] io, int ioStart, int ioEnd , int [] po, int poStart, int poEnd) {
+		
+		
+		if(ioStart> ioEnd || poStart > poEnd) {
+			
+			return null;
+		}
+		
+	     
+		TreeNode root = new TreeNode(po[poEnd]);
+		
+		int rootIndex = inorderMap.get(po[poEnd]);
+		  
+		int numsLeft = rootIndex-ioStart;
+		
+		root.left = splitTree2(io, ioStart, rootIndex -1, po, poStart, poStart + numsLeft-1 );
+			
+		root.right = splitTree2(io, rootIndex+1, ioEnd, po, poStart+numsLeft, poEnd-1);
+			
+	    return root;
+		
 		
 	}
 

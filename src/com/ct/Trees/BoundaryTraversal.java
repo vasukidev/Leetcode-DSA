@@ -35,7 +35,7 @@ public class BoundaryTraversal {
 			
 			leftTraversal(node.left, traversal);
 			// add all the left side elements and remove the last node as it's a leaf node
-			traversal.add(traversal.size()-1);
+			traversal.remove(traversal.size()-1);
 		}
 		
 		// create a list for right side of the tree 
@@ -45,10 +45,11 @@ public class BoundaryTraversal {
 			// call recursively and get the right list
 			rightTraversal(node.right, reverseTraversal);
 			// add right list get the right list and remove the last element
-			reverseTraversal.add(reverseTraversal.size()-1);
+			reverseTraversal.remove(reverseTraversal.size()-1);
 			// reverse the list
 			Collections.reverse(reverseTraversal);
 			// add all the right list elements to final list
+			// add will add all the elements
 			traversal.addAll(reverseTraversal);
 		}
 		

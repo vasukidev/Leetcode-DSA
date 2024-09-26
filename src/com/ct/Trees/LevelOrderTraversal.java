@@ -28,8 +28,9 @@ public class LevelOrderTraversal {
 		List<List<Integer>> arr = new ArrayList<>();
 		//the queue tree
 		Queue<TreeNode> q = new LinkedList<>();
-		
+		// edge case 
 		if(node==null) return arr;
+		// always add or print after the base condition
 		q.add(node);
 		while(!q.isEmpty()) {
 			
